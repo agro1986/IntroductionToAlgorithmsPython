@@ -1,11 +1,12 @@
 # insert the i-th item on the correct position
 def insertion_sort(a):
     for i in range(1, len(a)):
-        for j in range(i - 1, -1, -1):
-            if a[j] > a[j + 1]:
-                a[j], a[j + 1] = a[j + 1], a[j]
-            else:
-                break
+        key = a[i]
+        j = i - 1
+        while j >= 0 and a[j] > key:
+            a[j + 1] = a[j]
+            j -= 1
+        a[j + 1] = key
 
 
 # find the (next) smallest item, sink it like a rock
@@ -51,11 +52,11 @@ def bubble_sort(a):
 
 array1 = [5, 4, 3, 2, 0, 1, 6, 3]
 array2 = [31, 41, 59, 26, 41, 58]
-a = array2
+a = array1
 
 
-#insertion_sort(array)
+insertion_sort(a)
 #rock_sort(array)
-bubble_sort(a)
+#bubble_sort(a)
 
 print(a)
