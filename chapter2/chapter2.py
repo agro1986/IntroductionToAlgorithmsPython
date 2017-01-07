@@ -146,15 +146,63 @@ def bubble_sort(a):
                 a[j], a[j + 1] = a[j + 1], a[j]
 
 
+def print_tab(depth):
+    for i in range(0, depth):
+        print('  ', end='')
+
+
+def merge_sort(a):
+    merge_sort_real(a, 0, len(a) - 1)
+
+
+def merge_sort_real(a, i_min, i_max):  #, indent=0):
+    #print_tab(indent)
+    #print(i_min, i_max)
+    count = i_max - i_min + 1
+    if count <= 1:
+        return
+    mid = (i_min + i_max) // 2
+    if i_min != mid:
+        merge_sort_real(a, i_min, mid)  #, indent + 1)
+    if mid + 1 != i_max:
+        merge_sort_real(a, mid + 1, i_max)  #, indent + 1)
+
+    # combine
+    result = []
+    pointer_l = i_min
+    pointer_r = mid + 1
+    while pointer_l <= mid or pointer_r <= i_max:
+        if pointer_l > mid:
+            result.append(a[pointer_r])
+            pointer_r += 1
+        elif pointer_r > i_max:
+            result.append(a[pointer_l])
+            pointer_l += 1
+        elif a[pointer_l] < a[pointer_r]:
+            result.append(a[pointer_l])
+            pointer_l += 1
+        else:
+            result.append(a[pointer_r])
+            pointer_r += 1
+    # write the result back
+    pointer_l = i_min
+    #print_tab(indent + 1)
+    #print(result)
+    for n in result:
+        a[pointer_l] = n
+        pointer_l += 1
+
+
 array1 = [5, 4, 3, 2, 0, 1, 6, 3]
 array2 = [31, 41, 59, 26, 41, 58]
-a = array1
+a = array2
 
 
-selection_sort(a)
+#selection_sort(a)
 #insertion_sort_nondecreasing(a)
 #rock_sort(array)
 #bubble_sort(a)
+merge_sort(a)
 
 print(a)
 
