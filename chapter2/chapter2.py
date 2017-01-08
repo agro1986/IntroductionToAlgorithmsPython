@@ -94,6 +94,17 @@ def factorial(n):
         return None  # for other values, calculate it properly (not implemented)
 
 
+# 2.3-1
+#      A = [3, 41, 52, 26, 38, 57, 9, 49]
+#
+#          [3, 9, 26, 38, 41, 49, 52, 57]
+#             ↗                      ↖
+#      [3, 26, 41, 52]         [9, 38, 49, 57]
+#       ↗          ↖             ↗          ↖
+#   [3, 41]     [26, 52]     [38, 57]     [9, 49]
+#   ↗     ↖     ↗     ↖      ↗     ↖      ↗     ↖
+# [3]    [41] [52]    [26] [38]    [57] [9]    [49]
+
 # insert the i-th item on the correct position
 def insertion_sort(a):
     for i in range(1, len(a)):
