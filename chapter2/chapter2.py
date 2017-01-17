@@ -105,6 +105,46 @@ def factorial(n):
 #   ↗     ↖     ↗     ↖      ↗     ↖      ↗     ↖
 # [3]    [41] [52]    [26] [38]    [57] [9]    [49]
 
+
+# 2.3-2
+def merge_2_3_2(a, p, q, r):
+    n1 = q - p + 1
+    n2 = r - q
+    left = []
+    right = []
+    for i in range(0, n1):
+        left.append(a[p + i])
+    for j in range(0, n2):
+        right.append(a[q + 1 + j])
+    i = 0
+    j = 0
+    for k in range(p, r + 1):
+        if i >= n1:
+            a[k] = right[j]
+            j += 1
+        elif j >= n2:
+            a[k] = left[i]
+            i += 1
+        elif left[i] <= right[j]:
+            a[k] = left[i]
+            i += 1
+        else:
+            a[k] = right[j]
+            j += 1
+
+
+def merge_sort_2_3_2(a, p, r):
+    if p < r:
+        q = (p + r) // 2
+        merge_sort_2_3_2(a, p, q)
+        merge_sort_2_3_2(a, q + 1, r)
+        merge_2_3_2(a, p, q, r)
+
+# 2.3-3
+# Following figure 2.5, each height of the tree takes a total of time n,
+# The height of the tree is lg n
+# So the total time is n lg n
+
 # insert the i-th item on the correct position
 def insertion_sort(a):
     for i in range(1, len(a)):
@@ -162,6 +202,36 @@ def print_tab(depth):
         print('  ', end='')
 
 
+def merge(a, p, q, r):
+    n1 = q - p + 1
+    n2 = r - q
+    left = []
+    right = []
+    for i in range(0, n1):
+        left.append(a[p + i])
+    for j in range(0, n2):
+        right.append(a[q + 1 + j])
+    left.append(float('inf'))
+    right.append(float('inf'))
+    i = 0
+    j = 0
+    for k in range(p, r + 1):
+        if left[i] <= right[j]:
+            a[k] = left[i]
+            i += 1
+        else:
+            a[k] = right[j]
+            j += 1
+
+
+def merge_sort_book(a, p, r):
+    if p < r:
+        q = (p + r) // 2
+        merge_sort_book(a, p, q)
+        merge_sort_book(a, q + 1, r)
+        merge(a, p, q, r)
+
+
 def merge_sort(a):
     merge_sort_real(a, 0, len(a) - 1)
 
@@ -213,7 +283,7 @@ a = array2
 #insertion_sort_nondecreasing(a)
 #rock_sort(array)
 #bubble_sort(a)
-merge_sort(a)
+merge_sort_2_3_2(a, 0, len(a) - 1)
 
 print(a)
 
