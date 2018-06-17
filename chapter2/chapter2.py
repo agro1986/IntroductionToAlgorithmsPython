@@ -55,7 +55,7 @@ def add_binary(a, b):
 
 
 # 2.2-1
-# ç(n^3)
+# Θ(n^3)
 
 # 2.2-2
 # selection sort
@@ -144,6 +144,39 @@ def merge_sort_2_3_2(a, p, r):
 # Following figure 2.5, each height of the tree takes a total of time n,
 # The height of the tree is lg n
 # So the total time is n lg n
+
+# 2.3-4
+# divide: simple arithmetic, O(1)
+# conquer: solve 1 smaller problem size n-1, so it contributes T(n-1)
+# combine: takes O(n)
+# T(n) = 1                      , n = 1
+#      = T(n - 1) + O(1) + O(n) , n > 1
+# so concretely it is
+# T(n) = c             , n = 1
+#      = T(n - 1) + cn , n > 1
+# which means T(n) = cn + c(n - 1) + c(n - 2) + ... + c(2) + c(1)
+# = c(n + (n - 1) + (n - 2) + ... + 2 + 1)
+# = cn(n + 1)/2
+# which means it is O(n^2)
+
+
+# 2.3-5
+# note: array must be sorted
+def __binary_search(a, v, i_start, i_end):
+    if i_start > i_end:
+        return None
+
+    mid = (i_start + i_end) // 2
+    if a[mid] == v:
+        return mid
+    elif a[mid] < v:
+        return __binary_search(a, v, mid + 1, i_end)
+    else:
+        return __binary_search(a, v, i_start, mid - 1)
+
+
+def binary_search(a, v):
+    return __binary_search(a, v, 0, len(a) - 1)
 
 # insert the i-th item on the correct position
 def insertion_sort(a):
@@ -286,6 +319,7 @@ a = array2
 merge_sort_2_3_2(a, 0, len(a) - 1)
 
 print(a)
+print(binary_search(a, 1))
 
 #i = linear_search(array1, "adfasdf")
 #print(i)
